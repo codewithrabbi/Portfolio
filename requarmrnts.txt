@@ -1,0 +1,122 @@
+CREATE DATABASE portfolio_db;
+USE portfolio_db;
+
+-- Admin users table
+CREATE TABLE admins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Personal information
+CREATE TABLE personal_info (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    job_title VARCHAR(100) NOT NULL,
+    about_text TEXT NOT NULL,
+    profile_image VARCHAR(255),
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(20),
+    address TEXT,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Social links
+CREATE TABLE social_links (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    platform VARCHAR(50) NOT NULL,
+    url VARCHAR(255) NOT NULL,
+    icon_class VARCHAR(50) NOT NULL
+);
+
+-- Skills
+CREATE TABLE skills (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    percentage INT NOT NULL CHECK (percentage BETWEEN 0 AND 100),
+    category VARCHAR(50) NOT NULL
+);
+
+-- Education
+CREATE TABLE education (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    institution VARCHAR(100) NOT NULL,
+    degree VARCHAR(100) NOT NULL,
+    field_of_study VARCHAR(100) NOT NULL,
+    start_year INT NOT NULL,
+    end_year INT,
+    description TEXT
+);
+
+-- Experience
+CREATE TABLE experience (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    company VARCHAR(100) NOT NULL,
+    position VARCHAR(100) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE,
+    description TEXT NOT NULL,
+    current_job BOOLEAN DEFAULT FALSE
+);
+
+-- Projects
+CREATE TABLE projects (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL,
+    image_url VARCHAR(255) NOT NULL,
+    project_url VARCHAR(255),
+    category VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    views INT DEFAULT 0
+);
+
+-- Messages from contact form
+CREATE TABLE messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    subject VARCHAR(200) NOT NULL,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_read BOOLEAN DEFAULT FALSE
+);
+
+-- Insert initial admin (password: password)
+INSERT INTO admins (username, password) VALUES ('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+
+-- Insert initial personal info
+INSERT INTO personal_info (full_name, job_title, about_text, email) 
+VALUES ('John Doe', 'Web Developer', 'I am a passionate web developer with 5 years of experience...', 'john@example.com');
+
+-- Insert sample social links
+INSERT INTO social_links (platform, url, icon_class) VALUES 
+('GitHub', 'https://github.com', 'fab fa-github'),
+('LinkedIn', 'https://linkedin.com', 'fab fa-linkedin'),
+('Twitter', 'https://twitter.com', 'fab fa-twitter');
+
+-- Insert sample skills
+INSERT INTO skills (name, percentage, category) VALUES 
+('HTML/CSS', 95, 'Frontend'),
+('JavaScript', 85, 'Frontend'),
+('PHP', 80, 'Backend'),
+('MySQL', 75, 'Database');
+
+-- Insert sample education
+INSERT INTO education (institution, degree, field_of_study, start_year, end_year) VALUES 
+('Tech University', 'Bachelor of Science', 'Computer Science', 2015, 2019);
+
+-- Insert sample experience
+INSERT INTO experience (company, position, start_date, end_date, description, current_job) VALUES 
+('Web Solutions Inc', 'Junior Developer', '2019-06-01', '2021-05-31', 'Developed and maintained client websites', FALSE),
+('Digital Creations', 'Senior Developer', '2021-06-01', NULL, 'Lead developer for multiple projects', TRUE);
+
+-- Insert sample projects
+INSERT INTO projects (title, description, image_url, project_url, category) VALUES 
+('E-commerce Site', 'A fully functional online store', 'project1.jpg', 'https://example.com/project1', 'Web Development'),
+('Portfolio Design', 'Creative portfolio for a photographer', 'project2.jpg', 'https://example.com/project2', 'Design');
+
+-- Insert sample messages
+INSERT INTO messages (name, email, subject, message) VALUES 
+('Jane Smith', 'jane@example.com', 'Project Inquiry', 'I would like to discuss a potential project with you.');
