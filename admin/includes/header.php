@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gray-100">
     <!-- Admin Navigation -->
-    <nav class="bg-gray-800 text-white shadow-lg">
+    <nav class="bg-gray-800 text-white shadow-lg -beta3">
         <div class="container mx-auto px-6 py-3 ">
             <div class="flex justify-between items-center ">
                 <div class="flex items-center space-x-4">
